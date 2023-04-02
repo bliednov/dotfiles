@@ -3,5 +3,5 @@ Dotfiles.
 
 Bootstrap:
 ```
-bash <(curl -sL github.com/bliednov/dotfiles/master/bootstrap)
+bash <(curl -sL https://raw.githubusercontent.com/bliednov/dotfiles/master/bootstrap)
 ```
