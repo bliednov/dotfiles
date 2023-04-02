@@ -1,0 +1,6 @@
+alias ll='exa -lHB'
+alias l='exa -laHB'
+alias pymvvs='python -m venv .venv && source .venv/bin/activate'
+alias vi='nvim'
+alias ggpullffo='git pull origin $(git_current_branch) --ff-only'
+alias gcpbuildlog='gcloud builds log --stream $(gcloud builds list --limit=1 | sed -n 2p | cut -d " " -f1)'

@@ -1,0 +1,11 @@
+{{/* boolean feature tags */}}
+{{- $ci := false }}{{/* true if it is currently running inside the CI */}}
+{{- $hostname := .chezmoi.hostname -}}
+
+{{- if eq (env "CI") "true" }}
+{{- $ci = true }}
+{{- end }}
+
+[data]
+  ci = {{ $ci }}
+  hostname = {{ $hostname | quote }}

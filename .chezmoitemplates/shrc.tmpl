@@ -1,0 +1,25 @@
+{{ template "fullenv.tmpl" . }}
+
+export PATH="$PATH:$HOME/.pub-cache/bin"
+
+if ! ps -p $SSH_AGENT_PID &>/dev/null
+then
+    eval $(ssh-agent -t 86400 -s) &>/dev/null
+fi
+
+export GPG_TTY="$(tty)"
+#export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+gpg-connect-agent updatestartuptty /bye &>/dev/null
+
+if [ "$XDG_CURRENT_DESKTOP" = "i3" -o "$XDG_CURRENT_DESKTOP" = "Unity" ]
+then
+    setxkbmap -layout us -option ctrl:nocaps
+    setxkbmap -layout us,ru
+    setxkbmap -option 'grp:alt_shift_toggle'
+    export QT_SCALE_FACTOR=0
+    export QT_AUTO_SCREEN_SCALE_FACTOR=0
+    export XDG_CURRENT_DESKTOP="Unity"
+fi
+
+export EDITOR="vi"

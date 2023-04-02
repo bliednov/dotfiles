@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+. $(chezmoi source-path)/utils/add_ppa
+
+apt_repositories=()
+
+packages=(
+    build-essential
+    bison
+    byacc
+    ca-certificates
+    pinentry-tty
+    lsb-release
+    docker-ce
+    docker-ce-cli
+    containerd.io
+    dart
+    python3-dev
+    libffi-dev
+    locales
+    locales-all
+    xclip
+    xsel
+    net-tools
+    clang
+    clang-12
+    clang-format
+    pkg-config
+    libclang-dev
+    libclang-12-dev
+    llvm
+    zsh
+    fd-find
+    curl
+    quilt
+    jq
+    wget
+    git-lfs
+    git
+    fzf
+    checkinstall
+    nfs-common
+    libssl-dev
+    libssl1.1
+    libncurses5
+    gnupg
+    gnupg-agent
+    dirmngr
+    cryptsetup
+    scdaemon
+    pcscd
+    secure-delete
+    hopenpgp-tools
+    swig
+    libpcsclite-dev
+    at
+    rng-tools
+    python3-gnupg
+    paperkey
+    yamllint
+    snapd
+    yubikey-personalization
+    libpam-u2f
+    exuberant-ctags
+    tmux
+    wireguard
+    resolvconf
+    bubblewrap
+    openssh-server
+    xvfb
+    kubectl
+)
+
+snaps=(
+    gh
+    yq
+)
+
+classic_snaps=(
+    google-cloud-sdk
+    cmake
+    ripgrep
+    go
+    chezmoi
+    goreleaser
+)
+
+classic_edge_snaps=(
+    nvim
+)
+
+edge_snaps=(
+    golangci-lint
+)
+
+apt_repositories+=(
+    mmstick76/alacritty
+)
+
+snaps+=(
+    telegram-desktop
+)
+
+add_google_chrome_ppa
+add_1password_ppa
+{{- end }}
+
+for apt_repository in ${apt_repositories[@]}; do
+    add_ppa $apt_repository
+done
+
+add_dart_ppa
+add_docker_ppa
+add_kubectl_ppa
+
+# Terraform
+# TODO: Maybe if needed in the future for Linux
+
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install -y ${packages[@]}
+sudo apt autoremove -y
+
+sudo snap refresh
+for snap in ${snaps[@]}; do
+    sudo snap install $snap
+done
+
+for classic_snap in ${classic_snaps[@]}; do
+    sudo snap install --classic $classic_snap
+done
+
+for classic_edge_snap in ${classic_edge_snaps[@]}; do
+    sudo snap install --edge --classic $classic_edge_snap
+done
+
+for edge_snap in ${edge_snaps[@]}; do
+    sudo snap install --edge $edge_snap
+done

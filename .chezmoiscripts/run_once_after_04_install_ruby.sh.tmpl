@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+{{ template "env.tmpl" . }}
+{{ template "eval_rbenv.tmpl" . }}
+
+rbenv install -s 3.0.1
+rbenv global 3.0.1
+gem install bundler

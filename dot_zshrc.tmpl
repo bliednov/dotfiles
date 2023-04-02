@@ -1,0 +1,66 @@
+CASE_SENSITIVE="true"
+
+{{ template "shrc.tmpl" . }}
+
+. $HOME/.local/lib/antigen/antigen.zsh
+
+ZVM_VI_EDITOR=vi
+ZVM_INIT_MODE=sourcing
+ZVM_CURSOR_STYLE_ENABLED=false
+antigen use oh-my-zsh
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
+antigen bundle jeffreytse/zsh-vi-mode
+antigen bundle git
+antigen bundle gitfast
+antigen bundle pip
+antigen bundle z
+antigen bundle copydir
+antigen bundle copyfile
+antigen bundle fzf
+antigen bundle lincheney/fzf-tab-completion
+
+# Load the theme.
+antigen theme https://gist.github.com/d0eab1e76a7f64fce6cb5ca8b80853fc.git eavy
+
+# Tell Antigen that you're done.
+antigen apply
+
+ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+function zvm_after_select_vi_mode() {
+    case $ZVM_MODE in
+        $ZVM_MODE_NORMAL)
+            set_ret_status ">"
+        ;;
+        $ZVM_MODE_INSERT)
+            set_ret_status "$"
+        ;;
+        $ZVM_MODE_VISUAL)
+            set_ret_status "<"
+        ;;
+        $ZVM_MODE_VISUAL_LINE)
+            set_ret_status "<"
+        ;;
+        $ZVM_MODE_REPLACE)
+            set_ret_status "%"
+        ;;
+    esac
+}
+
+unsetopt correct_all
+setopt shwordsplit
+
+# TODO: Check if the following line does not have any hidden implications
+set -o noglob
+#compinit
+#_comp_options+=(globdots)
+
+bindkey "^?" backward-delete-char
+bindkey '^ ' autosuggest-accept
+
+. <(flux completion zsh)
+
+# TODO: Add completions for gcloud when snap supports them.
+
+. $HOME/.sh_aliases

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+{{ template "eval_cargo.tmpl" . }}
+
+cargo install exa fnm fd-find bat

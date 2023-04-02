@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+export PATH=$HOME/.local/bin:$PATH
+
+os=$(uname)
+supported_linux_distrib_id="Ubuntu"
+supported_linux_distrib_release="22.04"
+
+is_available() {
+    if command -v $1 &>/dev/null; then
+        return 0
+    fi
+    return 1
+}
+
+exists() {
+    [[ $(ls $1) ]] && return 0 || return 1
+}
+
+is_linux() {
+    [[ $os == "Linux" ]] && return 0 || return 1
+}
+
+check_os() {
+    is_linux && $(. /etc/lsb-release && [[ $DISTRIB_ID == $supported_linux_distrib_id && $DISTRIB_RELEASE == $supported_linux_distrib_release ]]) && return 0
+    ! is_linux && echo "Unsupported OS: $os"
+    is_linux && $(. /etc/lsb-release && echo "Unsupported Linux distribution: $DESTRIB_DESCRIPTION")
+    echo "Supported: Linux($supported_linux_distrib_id $supported_linux_distrib_release)"
+    exit 1
+}
+
+make_symlink() {
+    symlink=$HOME/.dotfiles
+    [[ -L $symlink ]] || ln -s $(chezmoi source-path) $symlink
+}
+
+install_chezmoi() {
+    is_available chezmoi && return 0
+    is_linux && sudo snap install chezmoi --classic
+}
+
+check_os
+is_darwin && install_homebrew
+install_chezmoi
+
+chezmoi init
+chezmoi apply --init
+
+make_symlink

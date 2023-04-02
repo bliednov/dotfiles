@@ -1,0 +1,21 @@
+install
+README.md
+
+.zcompdump*
+.zsh_history
+
+# Ignore MacOS files
+.CFUserTextEncoding
+.DS_Store
+.Trash
+
+.dart
+.fnm
+.cargo/*
+!.cargo/config
+.pyenv
+.rbenv
+.rustup
+.config/tmux/plugins/tpm
+.config/age/key.txt
+utils

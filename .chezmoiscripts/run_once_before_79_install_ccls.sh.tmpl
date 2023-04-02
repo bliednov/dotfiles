@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+{{ template "env.tmpl" . }}
+
+rm -rf /tmp/ccls
+git clone --depth=1 --recursive https://github.com/MaskRay/ccls /tmp/ccls
+cd /tmp/ccls
+cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=/usr/lib/llvm-12 -DLLVM_INCLUDE_DIR=/usr/lib/llvm-12/include -DLLVM_BUILD_INCLUDE_DIR=/usr/include/llvm-12
+cmake --build Release
+cp Release/ccls $HOME/.local/bin
+
+cd -

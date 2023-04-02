@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+{{ template "env.tmpl" . }}
+
+{{- if not .ci }}
+ssh-add
+ssh-add -L
+{{- end }}

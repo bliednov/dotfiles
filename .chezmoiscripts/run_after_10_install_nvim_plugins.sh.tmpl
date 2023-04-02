@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+{{ template "fullenv.tmpl" . }}
+
+#coc_nvim_dir=$HOME/.vim/plugged/coc.nvim
+#[[ -d $coc_nvim_dir ]] && (cd $coc_nvim_dir; git fetch --all && git reset origin/master --hard && yarn install --frozen-lockfile)
+#
+#nvim +PlugInstall +qall
+#nvim +CocUpdateSync +qall

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+{{ template "env.tmpl" . }}
+
+dart pub global activate fvm

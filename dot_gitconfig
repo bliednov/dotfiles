@@ -1,0 +1,28 @@
+[user]
+    name = Artem Bliednov
+    email = artem@bliednov.com
+    signingkey = 904841A1E733874F
+[core]
+    pager = less -iXFR
+    editor = nvim
+[commit]
+    gpgsign = true
+[tag]
+    gpgsign = true
+[diff]
+    tool = vimdiff
+[merge]
+    tool = vimdiff
+[color]
+    ui = auto
+[push]
+    default = simple
+[mergetool "vimdiff"]
+    path = nvim
+[alias]
+    st = status -sb
+    last = log -1 HEAD --stat
+    ac = !git add --all && git commit -am
+    rank = shortlog
+    undo = reset --mixed HEAD^
+    unstage = reset HEAD --

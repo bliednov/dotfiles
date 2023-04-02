@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+{{ template "env.tmpl" . }}
+
+# antigen
+antigen_location=$HOME/.local/lib/antigen
+[[ -d $antigen_location ]] || git clone https://github.com/zsh-users/antigen.git $antigen_location
+
+# pyenv
+[[ -d $PYENV_ROOT ]] || git clone https://github.com/pyenv/pyenv.git $PYENV_ROOT
+
+# rbenv
+[[ -d $RBENV_ROOT ]] || git clone https://github.com/rbenv/rbenv.git $RBENV_ROOT
+
+# ruby-build
+ruby_build_location=$RBENV_ROOT/plugins/ruby-build
+[[ -d $ruby_build_location ]] || git clone https://github.com/rbenv/ruby-build.git $ruby_build_location
+
+# tpm
+tpm_location=$XDG_CONFIG_HOME/tmux/plugins/tpm
+[[ -d $tpm_location ]] || git clone https://github.com/tmux-plugins/tpm $tpm_location
+
+# repo
+local_bin_dir=$HOME/.local/bin
+repo_location=$local_bin_dir/repo
+[[ -d $local_bin_dir ]] || mkdir -p $local_bin_dir
+[[ -d $repo_location ]] || curl https://storage.googleapis.com/git-repo-downloads/repo > $repo_location
+chmod +x $repo_location
+
+# k9s
+curl -L "https://github.com/derailed/k9s/releases/download/v0.25.15/k9s_Linux_x86_64.tar.gz" | tar xvz -C $local_bin_dir "k9s"
+chmod +x $local_bin_dir/k9s
+
+# FluxCD
+curl -L "https://github.com/fluxcd/flux2/releases/download/v0.24.1/flux_0.24.1_linux_amd64.tar.gz" | tar xvz -C $local_bin_dir "flux"
+chmod +x $local_bin_dir/flux
+
+# Kubeseal
+curl -L "https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.17.1/kubeseal-0.17.1-linux-amd64.tar.gz" | tar xvz -C $local_bin_dir "kubeseal"
+chmod +x $local_bin_dir/kubeseal
