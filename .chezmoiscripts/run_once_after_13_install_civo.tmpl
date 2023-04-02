@@ -3,7 +3,6 @@
 set -eufo pipefail
 
 {{ template "env.tmpl" . }}
-{{ template "eval_pyenv.tmpl" . }}
 
 curl -sL https://civo.com/get | sh
 mv /tmp/civo $HOME/.local/bin

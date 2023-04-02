@@ -3,6 +3,5 @@
 set -eufo pipefail
 
 {{ template "env.tmpl" . }}
-{{ template "eval_pyenv.tmpl" . }}
 
 curl -L https://raw.githubusercontent.com/nats-io/nsc/main/install.py | python

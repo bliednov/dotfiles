@@ -8,16 +8,6 @@ set -eufo pipefail
 antigen_location=$HOME/.local/lib/antigen
 [[ -d $antigen_location ]] || git clone https://github.com/zsh-users/antigen.git $antigen_location
 
-# pyenv
-[[ -d $PYENV_ROOT ]] || git clone https://github.com/pyenv/pyenv.git $PYENV_ROOT
-
-# rbenv
-[[ -d $RBENV_ROOT ]] || git clone https://github.com/rbenv/rbenv.git $RBENV_ROOT
-
-# ruby-build
-ruby_build_location=$RBENV_ROOT/plugins/ruby-build
-[[ -d $ruby_build_location ]] || git clone https://github.com/rbenv/ruby-build.git $ruby_build_location
-
 # tpm
 tpm_location=$XDG_CONFIG_HOME/tmux/plugins/tpm
 [[ -d $tpm_location ]] || git clone https://github.com/tmux-plugins/tpm $tpm_location

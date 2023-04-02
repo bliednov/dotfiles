@@ -13,8 +13,6 @@ README.md
 .fnm
 .cargo/*
 !.cargo/config
-.pyenv
-.rbenv
 .rustup
 .config/tmux/plugins/tpm
 .config/age/key.txt

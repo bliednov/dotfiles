@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-set -eufo pipefail
-
-{{ template "env.tmpl" . }}
-{{ template "eval_cargo.tmpl" . }}
-{{ template "eval_fnm.tmpl" . }}
-
-fnm install 16
