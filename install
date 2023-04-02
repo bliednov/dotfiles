@@ -42,7 +42,6 @@ install_chezmoi() {
 }
 
 check_os
-is_darwin && install_homebrew
 install_chezmoi
 
 chezmoi init
