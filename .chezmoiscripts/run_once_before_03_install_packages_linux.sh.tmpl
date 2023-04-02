@@ -103,10 +103,6 @@ snaps+=(
     telegram-desktop
 )
 
-add_google_chrome_ppa
-add_1password_ppa
-{{- end }}
-
 for apt_repository in ${apt_repositories[@]}; do
     add_ppa $apt_repository
 done
