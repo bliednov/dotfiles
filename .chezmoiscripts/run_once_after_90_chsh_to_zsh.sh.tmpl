@@ -4,10 +4,6 @@ set -eufo pipefail
 
 {{ template "env.tmpl" . }}
 
-{{- if .gcp }}
-sudo passwd -d $USER
-{{- end }}
-
 zsh_path=$(which zsh)
 if [[ "${zsh_path}" != "${SHELL}" ]] && [[ "${zsh_path}x" != "x" ]]; then
     sudo chsh -s $zsh_path root
