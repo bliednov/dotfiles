@@ -6,7 +6,7 @@ export PATH=$HOME/.local/bin:$PATH
 
 os=$(uname)
 supported_linux_distrib_id="Ubuntu"
-supported_linux_distrib_release="22.04"
+supported_linux_distrib_release="20.04"
 
 is_available() {
     if command -v $1 &>/dev/null; then
