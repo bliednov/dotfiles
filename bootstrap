@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+export PATH=$HOME/.local/bin:$PATH
+
+dotfiles_dir=$HOME/.local/share/chezmoi
+if test -d $dotfiles_dir
+then
+    (cd $dotfiles_dir; git fetch --all; git pull origin master --ff-only)
+else
+    git clone https://github.com/bliednov/dotfiles.git $dotfiles_dir
+fi
+
+(cd $dotfiles_dir; ./install)
