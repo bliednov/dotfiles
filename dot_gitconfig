@@ -1,14 +1,9 @@
 [user]
     name = Artem Bliednov
     email = artem@bliednov.com
-    signingkey = 904841A1E733874F
 [core]
     pager = less -iXFR
     editor = nvim
-[commit]
-    gpgsign = true
-[tag]
-    gpgsign = true
 [diff]
     tool = vimdiff
 [merge]
