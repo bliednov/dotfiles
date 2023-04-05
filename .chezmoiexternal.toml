@@ -1,0 +1,44 @@
+[".config/nvim"]
+    type = "git-repo"
+    url = "git@github.com:bliednov/nvim.git"
+    refreshPeriod = "168h"
+
+[".local/lib/antigen"]
+    type = "git-repo"
+    url = "https://github.com/zsh-users/antigen.git"
+    refreshPeriod = "168h"
+
+[".config/tmux/plugins/tpm"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tpm"
+    refreshPeriod = "168h"
+
+[".local/bin/repo"]
+    type = "file"
+    url = "https://storage.googleapis.com/git-repo-downloads/repo"
+    refreshPeriod = "168h"
+    executable = true
+
+[".local/bin/temp/flux"]
+    type = "file"
+    url = "https://github.com/fluxcd/flux2/releases/download/v0.24.1/flux_0.24.1_linux_amd64.tar.gz"
+    executable = true
+    refreshPeriod = "168h"
+
+[".local/bin/k9s"]
+    type = "file"
+    url = "https://github.com/derailed/k9s/releases/download/v0.25.15/k9s_Linux_x86_64.tar.gz"
+    executable = true
+    refreshPeriod = "168h"
+
+[".local/bin/flux"]
+    type = "file"
+    url = "https://github.com/fluxcd/flux2/releases/download/v0.24.1/flux_0.24.1_linux_amd64.tar.gz"
+    executable = true
+    refreshPeriod = "168h"
+
+[".local/bin/kubeseal"]
+    type = "file"
+    url = "https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.17.1/kubeseal-0.17.1-linux-amd64.tar.gz"
+    executable = true
+    refreshPeriod = "168h"
