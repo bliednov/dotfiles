@@ -8,10 +8,17 @@ return {
     dependencies = {
       -- LSP Support
       { 'neovim/nvim-lspconfig' }, -- Required
+      -- Necessary due to config
+      'nvim-telescope/telescope.nvim',
       {
-        -- Optional
+        -- Optional,
         'williamboman/mason.nvim',
-        build = ":MasonUpdate",
+        build = function()
+          local f = function()
+            vim.cmd('MasonUpdate')
+          end
+          pcall(f)
+        end,
       },
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
@@ -21,7 +28,10 @@ return {
       { 'L3MON4D3/LuaSnip' },     -- Required
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',                opts = {} },
+      -- Additional lua configuration, makes nvim stuff amazing!
+      { 'folke/neodev.nvim',                opts = {} },
+      'github/copilot.vim',
     },
     config = function()
       local lsp = require("lsp-zero")
@@ -29,19 +39,15 @@ return {
       lsp.preset("recommended")
 
       lsp.ensure_installed({
+        'lua_ls',
         'rust_analyzer',
       })
 
-      -- Fix Undefined global 'vim'
       lsp.configure('lua_ls', {
         settings = {
           Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
-
-            diagnostics = {
-              globals = { 'vim' }
-            }
           }
         }
       })
@@ -51,7 +57,10 @@ return {
       local cmp_mappings = lsp.defaults.cmp_mappings({
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        ['<CR>'] = cmp.mapping.confirm {
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+        },
         ["<C-Space>"] = cmp.mapping.complete(),
       })
 
@@ -74,8 +83,8 @@ return {
 
       lsp.format_on_save({
         servers = {
-          ['lua_ls'] = {'lua'},
-          ['rust_analyzer'] = {'rust'},
+          ['lua_ls'] = { 'lua' },
+          ['rust_analyzer'] = { 'rust' },
         }
       })
 
@@ -100,13 +109,13 @@ return {
         nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
         nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-        nmap("gr", vim.lsp.buf.references, '[G]oto [R]eferences')
-        -- nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        -- nmap("gr", vim.lsp.buf.references, '[G]oto [R]eferences')
+        nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
         nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
         nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-        -- nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-        nmap("<leader>ws", vim.lsp.buf.workspace_symbol, '[W]orkspace [S]ymbols')
-        -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+        nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+        -- nmap("<leader>ws", vim.lsp.buf.workspace_symbol, '[W]orkspace [S]ymbols')
+        nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
         -- See `:help K` for why this keymap
         nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
