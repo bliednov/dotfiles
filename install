@@ -45,6 +45,6 @@ check_os
 install_chezmoi
 
 chezmoi init
-chezmoi apply --init
+chezmoi apply --init --refresh-externals
 
 make_symlink
